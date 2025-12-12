@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const sorteio = buscarSorteio(id);
+    const sorteio = await buscarSorteio(id);
     if (!sorteio) {
       return NextResponse.json({ error: 'Sorteio não encontrado' }, { status: 404 });
     }
@@ -55,8 +55,8 @@ export async function POST(request: NextRequest) {
     // Registra o sorteio
     sorteio.sorteados[nomeLimpo] = sorteado;
 
-    // Atualiza no Map
-    atualizarSorteio(id, sorteio);
+    // Atualiza no KV
+    await atualizarSorteio(id, sorteio);
 
     return NextResponse.json({
       sorteado,

@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'ID do sorteio é obrigatório' }, { status: 400 });
   }
 
-  const sorteio = buscarSorteio(id);
+  const sorteio = await buscarSorteio(id);
   if (!sorteio) {
     return NextResponse.json({ error: 'Sorteio não encontrado' }, { status: 404 });
   }
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const sorteio = criarSorteio(participantesLimpos);
+    const sorteio = await criarSorteio(participantesLimpos);
 
     return NextResponse.json(sorteio);
   } catch (error) {

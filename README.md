@@ -36,7 +36,23 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador.
 - React 19
 - TypeScript
 - Tailwind CSS
+- Vercel KV (armazenamento persistente)
 
-## 📝 Nota
+## 📦 Deploy no Vercel
 
-Este app usa armazenamento em memória para os sorteios. Os dados são perdidos quando o servidor é reiniciado. Para uso em produção, recomenda-se integrar com um banco de dados.
+Este app usa **Vercel KV** (Redis) para armazenamento persistente. Para publicar no Vercel:
+
+1. **Crie o projeto no Vercel:**
+   ```bash
+   vercel
+   ```
+
+2. **Configure o Vercel KV:**
+   - Acesse o [Vercel Dashboard](https://vercel.com/dashboard)
+   - Vá em **Storage** > **Create Database** > **KV**
+   - Crie um novo KV store
+   - Conecte o KV ao seu projeto (o Vercel configura as variáveis de ambiente automaticamente)
+
+3. **Pronto!** O app agora persiste os dados entre reinicializações.
+
+**Nota:** Em desenvolvimento local, se o Vercel KV não estiver configurado, o app usa armazenamento em memória como fallback (dados são perdidos ao reiniciar).
