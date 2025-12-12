@@ -124,7 +124,7 @@ export default function SorteioPage() {
             </div>
           </div>
 
-          <div className="bg-[#FFF9C4] rounded-xl p-4 mb-6 border border-[#FFE082]">
+          <div className="bg-[#FFF9C4] rounded-xl p-4 border border-[#FFE082]">
             <p className="text-sm text-[#5D4037] mb-1 font-medium">
               Status do Sorteio
             </p>
@@ -137,16 +137,6 @@ export default function SorteioPage() {
               </p>
             )}
           </div>
-
-          <button
-            onClick={() => {
-              setResultado(null);
-              setNome('');
-            }}
-            className="w-full px-4 py-3 bg-[#E3F2FD] hover:bg-[#BBDEFB] text-[#5D4037] rounded-xl transition-colors border border-[#90CAF9] font-medium"
-          >
-            Ver Status Novamente
-          </button>
         </div>
       </div>
     );

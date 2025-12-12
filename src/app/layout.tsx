@@ -17,6 +17,9 @@ const kalam = Kalam({
 export const metadata: Metadata = {
   title: "Amigo Secreto",
   description: "Crie e gerencie sorteios de amigo secreto",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

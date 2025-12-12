@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo suave -->
+  <rect width="512" height="512" rx="100" fill="#F5F1E8"/>
+  
+  <!-- Sombra da caixa -->
+  <rect x="156" y="384" width="200" height="184" rx="16" fill="#8D6E63" opacity="0.2"/>
+  
+  <!-- Caixa do presente -->
+  <rect x="160" y="224" width="192" height="184" rx="16" fill="#FFF9C4" stroke="#5D4037" stroke-width="8"/>
+  
+  <!-- Tampo do presente (perspectiva) -->
+  <path d="M160 224 L256 272 L352 224 L256 176 Z" fill="#E3F2FD" stroke="#5D4037" stroke-width="8"/>
+  
+  <!-- Fita vertical -->
+  <rect x="248" y="96" width="16" height="416" fill="#FCE4EC" stroke="#8D6E63" stroke-width="4"/>
+  
+  <!-- Laço superior - lado esquerdo -->
+  <ellipse cx="192" cy="176" rx="32" ry="24" fill="#FCE4EC" stroke="#8D6E63" stroke-width="6"/>
+  <ellipse cx="176" cy="168" rx="24" ry="16" fill="#E3F2FD" opacity="0.8"/>
+  
+  <!-- Laço superior - lado direito -->
+  <ellipse cx="320" cy="176" rx="32" ry="24" fill="#FCE4EC" stroke="#8D6E63" stroke-width="6"/>
+  <ellipse cx="336" cy="168" rx="24" ry="16" fill="#E3F2FD" opacity="0.8"/>
+  
+  <!-- Laço central -->
+  <ellipse cx="256" cy="160" rx="40" ry="32" fill="#FCE4EC" stroke="#8D6E63" stroke-width="6"/>
+  
+  <!-- Fita horizontal no topo -->
+  <rect x="140" y="224" width="232" height="20" fill="#FCE4EC" stroke="#8D6E63" stroke-width="4"/>
+  
+  <!-- Detalhes decorativos na caixa -->
+  <circle cx="200" cy="280" r="12" fill="#FFCDD2" opacity="0.6"/>
+  <circle cx="312" cy="320" r="12" fill="#BBDEFB" opacity="0.6"/>
+  <circle cx="280" cy="360" r="10" fill="#FFE082" opacity="0.7"/>
+</svg>
+
