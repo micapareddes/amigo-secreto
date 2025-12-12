@@ -21,8 +21,15 @@ function getRedisClient(): Redis | null {
     return redisClient;
   }
   
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  // Tenta várias possíveis variáveis de ambiente
+  const url = 
+    process.env.UPSTASH_REDIS_REST_URL || 
+    process.env.KV_REST_API_URL ||
+    process.env.REDIS_URL;
+  
+  const token = 
+    process.env.UPSTASH_REDIS_REST_TOKEN || 
+    process.env.KV_REST_API_TOKEN;
   
   if (url && token) {
     try {
