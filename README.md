@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎁 Amigo Secreto
 
-## Getting Started
+App simples de amigo secreto desenvolvido com Next.js. Permite criar sorteios, gerar links compartilháveis e realizar sorteios individuais onde cada pessoa descobre seu amigo secreto.
 
-First, run the development server:
+## 🚀 Como Usar
+
+### Iniciar o servidor de desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Criar Sorteio**: Na página inicial, adicione os nomes dos participantes e clique em "Criar Sorteio e Gerar Link"
+2. **Compartilhar Link**: Copie o link gerado e compartilhe com os participantes
+3. **Realizar Sorteio**: Cada pessoa acessa o link, digita seu nome e descobre seu amigo secreto
+4. **Regras Automáticas**:
+   - Ninguém pode sortear a si mesmo
+   - Cada pessoa só pode ser sorteada uma vez
+   - Após ser sorteada, a pessoa é removida da lista de disponíveis
+   - Todos recebem um nome único
 
-## Learn More
+## 📋 Scripts Disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Cria build de produção
+- `npm run start` - Inicia o servidor de produção
+- `npm run lint` - Executa o ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tecnologias
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
 
-## Deploy on Vercel
+## 📝 Nota
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este app usa armazenamento em memória para os sorteios. Os dados são perdidos quando o servidor é reiniciado. Para uso em produção, recomenda-se integrar com um banco de dados.
