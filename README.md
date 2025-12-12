@@ -36,23 +36,32 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador.
 - React 19
 - TypeScript
 - Tailwind CSS
-- Vercel KV (armazenamento persistente)
+- Upstash Redis (armazenamento persistente)
 
 ## 📦 Deploy no Vercel
 
-Este app usa **Vercel KV** (Redis) para armazenamento persistente. Para publicar no Vercel:
+Este app usa **Upstash Redis** para armazenamento persistente. Para publicar no Vercel:
 
 1. **Crie o projeto no Vercel:**
    ```bash
    vercel
    ```
 
-2. **Configure o Vercel KV:**
+2. **Configure o Upstash Redis:**
    - Acesse o [Vercel Dashboard](https://vercel.com/dashboard)
-   - Vá em **Storage** > **Create Database** > **KV**
-   - Crie um novo KV store
-   - Conecte o KV ao seu projeto (o Vercel configura as variáveis de ambiente automaticamente)
+   - Vá em **Storage** > **Create Database**
+   - Selecione **Marketplace Database Providers** > **Upstash** > **Serverless DB (Redis)**
+   - Ou vá direto para [Upstash Console](https://console.upstash.com/) e crie um Redis database
+   - Copie as credenciais: `UPSTASH_REDIS_REST_URL` e `UPSTASH_REDIS_REST_TOKEN`
+   - No Vercel Dashboard, vá em **Settings** > **Environment Variables** e adicione essas duas variáveis
 
 3. **Pronto!** O app agora persiste os dados entre reinicializações.
 
-**Nota:** Em desenvolvimento local, se o Vercel KV não estiver configurado, o app usa armazenamento em memória como fallback (dados são perdidos ao reiniciar).
+**Nota:** Em desenvolvimento local, você pode criar um arquivo `.env.local` com as variáveis do Upstash ou deixar sem configurar para usar armazenamento em memória como fallback (dados são perdidos ao reiniciar).
+
+**Para desenvolvimento local:**
+```bash
+# .env.local
+UPSTASH_REDIS_REST_URL=https://seu-redis.upstash.io
+UPSTASH_REDIS_REST_TOKEN=seu-token-aqui
+```

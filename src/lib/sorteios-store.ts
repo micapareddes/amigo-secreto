@@ -1,7 +1,7 @@
-// Armazenamento usando Vercel KV (Redis)
+// Armazenamento usando Upstash Redis
 // Funciona tanto em desenvolvimento quanto em produção no Vercel
 
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
 export interface SorteioData {
   id: string;
@@ -10,12 +10,34 @@ export interface SorteioData {
   criadoEm: number;
 }
 
-// Fallback para desenvolvimento local se KV não estiver configurado
+// Fallback para desenvolvimento local se Redis não estiver configurado
 const sorteiosLocal: Map<string, SorteioData> = new Map();
 
-// Verifica se o KV está configurado
-function isKvConfigured(): boolean {
-  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+// Cria cliente Redis se as variáveis de ambiente estiverem configuradas
+let redisClient: Redis | null = null;
+
+function getRedisClient(): Redis | null {
+  if (redisClient) {
+    return redisClient;
+  }
+  
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  
+  if (url && token) {
+    try {
+      redisClient = new Redis({
+        url,
+        token,
+      });
+      return redisClient;
+    } catch (error) {
+      console.warn('Erro ao inicializar Redis:', error);
+      return null;
+    }
+  }
+  
+  return null;
 }
 
 export async function criarSorteio(participantes: string[]): Promise<SorteioData> {
@@ -27,15 +49,14 @@ export async function criarSorteio(participantes: string[]): Promise<SorteioData
     criadoEm: Date.now(),
   };
   
-  if (isKvConfigured()) {
+  const redis = getRedisClient();
+  if (redis) {
     try {
-      // Usa Vercel KV
-      await kv.set(`sorteio:${id}`, sorteio);
-      // Define TTL de 30 dias para limpar sorteios antigos
-      await kv.expire(`sorteio:${id}`, 60 * 60 * 24 * 30);
+      // Usa Upstash Redis
+      await redis.set(`sorteio:${id}`, sorteio, { ex: 60 * 60 * 24 * 30 }); // TTL de 30 dias
     } catch (error) {
       // Se falhar, usa fallback local
-      console.warn('Erro ao usar Vercel KV, usando armazenamento local:', error);
+      console.warn('Erro ao usar Redis, usando armazenamento local:', error);
       sorteiosLocal.set(id, sorteio);
     }
   } else {
@@ -47,14 +68,15 @@ export async function criarSorteio(participantes: string[]): Promise<SorteioData
 }
 
 export async function buscarSorteio(id: string): Promise<SorteioData | undefined> {
-  if (isKvConfigured()) {
+  const redis = getRedisClient();
+  if (redis) {
     try {
-      // Usa Vercel KV
-      const sorteio = await kv.get<SorteioData>(`sorteio:${id}`);
+      // Usa Upstash Redis
+      const sorteio = await redis.get<SorteioData>(`sorteio:${id}`);
       return sorteio || undefined;
     } catch (error) {
       // Se falhar, tenta buscar no fallback local
-      console.warn('Erro ao usar Vercel KV, usando armazenamento local:', error);
+      console.warn('Erro ao usar Redis, usando armazenamento local:', error);
       return sorteiosLocal.get(id);
     }
   } else {
@@ -64,15 +86,14 @@ export async function buscarSorteio(id: string): Promise<SorteioData | undefined
 }
 
 export async function atualizarSorteio(id: string, sorteio: SorteioData): Promise<void> {
-  if (isKvConfigured()) {
+  const redis = getRedisClient();
+  if (redis) {
     try {
-      // Usa Vercel KV
-      await kv.set(`sorteio:${id}`, sorteio);
-      // Renova TTL
-      await kv.expire(`sorteio:${id}`, 60 * 60 * 24 * 30);
+      // Usa Upstash Redis
+      await redis.set(`sorteio:${id}`, sorteio, { ex: 60 * 60 * 24 * 30 }); // Renova TTL
     } catch (error) {
       // Se falhar, usa fallback local
-      console.warn('Erro ao usar Vercel KV, usando armazenamento local:', error);
+      console.warn('Erro ao usar Redis, usando armazenamento local:', error);
       sorteiosLocal.set(id, sorteio);
     }
   } else {
